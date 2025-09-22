@@ -8,25 +8,25 @@
 //task 5
 // pages/about.tsx
 // components/common/Button.tsx
-import type { ButtonProps } from "@/interfaces";
+// pages/about.tsx
+import Button from "@/components/common/Button";
 
-export default function Button({
-  size = "medium",
-  shape = "rounded-md",
-  children,
-  onClick,
-}: ButtonProps) {
-  let sizeClass = "";
-  if (size === "small") sizeClass = "px-2 py-1 text-sm";
-  else if (size === "medium") sizeClass = "px-4 py-2 text-base";
-  else if (size === "large") sizeClass = "px-6 py-3 text-lg";
-
+export default function About() {
   return (
-    <button
-      onClick={onClick}
-      className={`${sizeClass} ${shape} bg-blue-600 text-white hover:bg-blue-700 transition`}
-    >
-      {children}
-    </button>
+    <div className="p-6">
+      <h1 className="text-2xl mb-4">About Page</h1>
+
+      <div className="flex gap-4">
+        <Button size="small" shape="rounded-sm">
+          Small & Rounded-SM
+        </Button>
+        <Button size="medium" shape="rounded-md">
+          Medium & Rounded-MD
+        </Button>
+        <Button size="large" shape="rounded-full">
+          Large & Rounded-Full
+        </Button>
+      </div>
+    </div>
   );
 }
