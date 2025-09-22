@@ -13,32 +13,15 @@
 //   );
 // }
 // task7
-import { useEffect, useState } from "react";
 import Header from "@/components/layout/Header";
 import PostCard from "@/components/common/PostCard";
 import type { PostProps } from "@/interfaces";
 
-export default function Posts() {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+interface PostsPageProps {
+  posts: PostProps[];
+}
 
-  useEffect(() => {
-    async function fetchPosts() {
-      const res = await fetch(
-        "https://jsonplaceholder.typicode.com/posts?_limit=10"
-      );
-      const data = await res.json();
-      // Transform API data to match PostProps interface
-      const formattedPosts = data.map((post: any) => ({
-        title: post.title,
-        content: post.body,
-        userId: post.userId,
-      }));
-      setPosts(formattedPosts);
-    }
-
-    fetchPosts();
-  }, []);
-
+export default function Posts({ posts }: PostsPageProps) {
   return (
     <div>
       <Header />
@@ -55,4 +38,24 @@ export default function Posts() {
       </main>
     </div>
   );
+}
+
+// Fetch posts at build time
+export async function getStaticProps() {
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=10"
+  );
+  const data = await res.json();
+
+  const posts: PostProps[] = data.map((post: any) => ({
+    title: post.title,
+    content: post.body,
+    userId: post.userId,
+  }));
+
+  return {
+    props: {
+      posts,
+    },
+  };
 }
