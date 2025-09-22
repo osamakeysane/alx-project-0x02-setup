@@ -1,4 +1,6 @@
-import { CardProps } from "@/interfaces";
+// alx-project-0x02/components/common/Card.tsx
+import { type CardProps } from "@/interfaces";
+
 export default function Card({ title, content }: CardProps) {
   return (
     <div className="border rounded-lg shadow-md p-4 bg-white">
